@@ -44,11 +44,11 @@ class GoveeConfigFlow(ConfigFlow, domain=DOMAIN):
             return await self.async_step_bluetooth_confirm()
 
         current_addresses = self._async_current_ids()
-        for discovery_info in async_discovered_service_info(self.hass, True):
+        for discovery_info in async_discovered_service_info(self.hass, False):
             address = discovery_info.address
             if address in current_addresses or address in self._discovered_devices:
                 continue
-            if not discovery_info.name.startswith(DISCOVERY_NAMES):
+            if not discovery_info.name or not discovery_info.name.startswith(DISCOVERY_NAMES):
                 continue
             self._discovered_devices[address] = discovery_info
 
