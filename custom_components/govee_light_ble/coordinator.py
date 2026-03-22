@@ -38,7 +38,7 @@ class GoveeCoordinator(DataUpdateCoordinator):
         ble_device = bluetooth.async_ble_device_from_address(
             hass,
             self.device_address,
-            connectable=False
+            connectable=True
         )
         assert ble_device
         self._api = GoveeAPI(ble_device, self._async_push_data, self.device_segmented)
